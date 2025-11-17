@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 1</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="flex flex-col min-h-screen">
+    <div class="shadow-sm bg-base-300">
+        <div class="navbar container max-w-7xl mx-auto">
+            <div class="navbar-start">
+                <div class="dropdown">
+                    <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h8m-8 6h16" />
+                        </svg>
+                    </div>
+                    <ul tabindex="-1"
+                        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                        <li><a>Item 1</a></li>
+                        <li>
+                            <a>Parent</a>
+                            <ul class="p-2">
+                                <li><a>Submenu 1</a></li>
+                                <li><a>Submenu 2</a></li>
+                            </ul>
+                        </li>
+                        <li><a>Item 3</a></li>
+                    </ul>
+                </div>
+                <a class="btn btn-ghost text-xl">Title</a>
+            </div>
+            <div class="navbar-center hidden lg:flex">
+                <ul class="menu menu-horizontal px-1 gap-x-2">
+                    <li><a href="/about.html">About Us</a></li>
+                    <li><a href="/assignments.html">Assignments</a></li>
+                    <li><a href="/slides.html">Slides</a></li>
+                    <li><a href="/code.html">Java Code</a></li>
+                </ul>
+            </div>
+            <div class="navbar-end">
+            </div>
+        </div>
+    </div>
+    <div class="flex-1 container max-w-7xl mx-auto py-16">
+        <div>
+            <h1 class="font-semibold text-2xl">Assignment description</h1>
+            <ul class="list-disc list-inside">
+                <li>Email 3 ideas per day</li>
+                <li>Address of HTML page containing all assignments</li>
+                <li>Presentation of the startup and the application in 5 lines</li>
+                <li>Link to a PDF file containing the 23 slides described below; all slides must be present, with their
+                    title, but empty</li>
+            </ul>
+        </div>
+
+        <div class="divider"></div>
+        <div>
+            <h2 class="font-semibold text-xl">Ideas</h2>
+            <table class="table table-zebra mt-8">
+                <!-- head -->
+                <thead class="bg-neutral-50">
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Context & Problem</th>
+                        <th>Solution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>1</th>
+                        <td>PhD Job Search</td>
+                        <td>
+                            Many students struggle to find effective PhD job postings or research teams that align with
+                            their interests.
+                            How to effectively find research teams that match students' interests?
+                        </td>
+                        <td>1. Extract author lists from major journals and conferences, identify research teams based
+                            on these lists, and summarize the results using artificial intelligence. 2. Extract content
+                            from websites relevant to PhD job postings.</td>
+                    </tr>
+                    <tr>
+                        <th>2</th>
+                        <td>Smart grocery price compare</td>
+                        <td>
+                            Grocery prices vary widely across stores (Carrefour, Lidl, Monoprix, etc.).
+                            Users waste time checking multiple apps, and unit sizes (500 g vs 1 kg) make comparison
+                            difficult.
+                        </td>
+                        <td>An app that compares real-time grocery prices across nearby supermarkets.
+                            It converts all items to €/kg or €/L, calculates the total basket cost, and shows the
+                            cheapest store nearby.</td>
+                    </tr>
+                    <tr>
+                        <th>3</th>
+                        <td>SmartWardrobe-Outfit Planner & Tracker</td>
+                        <td>
+                            Many people struggle every morning to decide what to wear or forget which clothes they have.
+                            This wastes time and often leads to wearing the same outfits repeatedly while other clothes
+                            stay unused.
+                        </td>
+                        <td> A mobile app that lets users photograph and categorize their clothes, then uses simple AI
+                            to suggest daily outfit combinations based on weather, occasion, and previous usage. It also
+                            tracks worn frequency to help declutter the wardrobe and optimize choices and changing
+                            outfits frequently</td>
+                    </tr>
+                    <tr>
+                        <th>4</th>
+                        <td>EcoRemind – Waste Sorting Assistant</td>
+                        <td>
+                            Many people are confused about how to properly sort household waste, especially since
+                            recycling rules differ between cities (me first).
+                            Incorrect waste sorting causes contamination of recyclable materials and increases the
+                            environmental footprint.
+                        </td>
+                        <td>EcoRemind is a mobile app that allows users to scan a product’s barcode or take a photo to
+                            identify its material and find the correct recycling bin (plastic, glass, paper, etc.)
+                            according to their city’s rules. The app combines a visual recognition model and a
+                            geolocated database to provide accurate, eco-friendly guidance.</td>
+                    </tr>
+                    <tr>
+                        <th>5</th>
+                        <td>Alarm Randomizer</td>
+                        <td>
+                            I'm so used to listening to the same alarm sound that sometimes my brain would just filter
+                            out the sound in the morning and continue sleeping.
+                            Oversleeping can cause you to be late for school/work/events/... not a very common problem
+                            but some people do have this issue.
+                        </td>
+                        <td>If you have a different alarm sound each day, you will not be able to get used to it. Each
+                            alarm sound is engineered to be just loud and energetic enough to wake you without being
+                            harsh.</td>
+                    </tr>
+                    <tr>
+                        <th>6</th>
+                        <td>Balance diet helper</td>
+                        <td>
+                            International students and young adults in France who live alone and struggle to maintain
+                            balanced eating habits. Without family supervision, many eat irregularly or rely on
+                            repetitive, unbalanced meals (e.g., too much carbs, not enough vegetables or protein).
+                            This leads to low energy, poor concentration, and unhealthy weight changes.
+                        </td>
+                        <td>An app that analyzes daily meals, detects nutritional imbalance, and provides personalized
+                            meal suggestions based on missing nutrients.
+                            It helps users track calories, vitamins, and macronutrients, encouraging variety and
+                            moderation.</td>
+                    </tr>
+                    <tr>
+                        <th>7</th>
+                        <td>Find your phone wallpaper</td>
+                        <td>
+                            Changing your phone wallpaper is a complex task. Current wallpaper search methods rely on
+                            matching fixed phrases, failing to consider details like color and orientation. This makes
+                            it difficult to find the wallpaper you need.
+                        </td>
+                        <td> Introduce AGI (Artificial Intelligence Technology). Using AI's image recognition
+                            capabilities helps us find the wallpaper we want, making it more accurate and personalized.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>8</th>
+                        <td>Menu Assistant</td>
+                        <td>
+                            As a foreigner, when ordering food at a Parisian restaurant, I often can't figure out what
+                            the dishes look like on a full-text menu. To order something more satisfactory, I have to
+                            search, which takes a lot of time and is often inaccurate.
+                        </td>
+                        <td>Use an AI assistant to analyze the dish names to obtain the ingredients and crawl example
+                            images from the internet.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>9</th>
+                        <td>Dog breed picker</td>
+                        <td>
+                            It's hard to choose the perfect dog breed for you when you want a pet.
+                        </td>
+                        <td>An application that you can input info like if you want a big or small dog, how active it
+                            is, your budget, your house size, ... to recommend a suitable breed for you
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>10</th>
+                        <td>Smart Fridge Organizer App</td>
+                        <td>
+                            Food in the fridge often expires or gets mixed (raw meat near vegetables or cooked food),
+                            causing odor and contamination.
+                        </td>
+                        <td>An app that tracks stored food, reminds users before expiration, and suggests optimal fridge
+                            placement to keep ingredients fresh and separated.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>11</th>
+                        <td>Website Change Detection</td>
+                        <td>
+                            In daily life, we might constantly check for updates on certain websites, but not every
+                            website (especially private websites) has an update notification interface.
+                        </td>
+                        <td>Users can register the websites they want to track. The backend will check the MD5 hash of
+                            the website content every half hour, and if changes are found, an update notification will
+                            be sent to the user's email.
+
+                            Furthermore, we are considering more granular update notification rules and introducing an
+                            AI assistant to summarize website update content.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>12</th>
+                        <td>Smart Wardrobe Finder App</td>
+                        <td>
+                            People with many clothes who often forget where specific items are stored.
+                            Closets are messy, and it’s hard to find clothes — users waste time searching or forget what
+                            they own.
+                        </td>
+                        <td>An app that lets users digitally organize their wardrobe by taking photos and tagging
+                            storage locations (drawer, box, section).
+                            It helps quickly locate any item through search, filters, or color recognition.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>13</th>
+                        <td>MedMinder – Smart Medicine Reminder & Tracker</td>
+                        <td>
+                            Many people (especially students or elderly) forget to take their medicine on time or lose
+                            track of their prescriptions.
+                            Missed doses reduce treatment effectiveness and can even cause health complications.
+                        </td>
+                        <td>MedMinder is a simple mobile app that reminds users when to take their medication, tracks
+                            intake history, and alerts them when they’re running low on doses. It can also generate a
+                            refill reminder and optionally share compliance reports with a doctor or caregiver :)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>14</th>
+                        <td>Take home assignments sharing platform</td>
+                        <td>
+                            people looking for jobs or just people that want to train their skills and prepare for
+                            future career
+                            Problems: There are many take home assignment formats, vary from company to company, on many
+                            different topics,... Young students might have problems when facing one if they have never
+                            done anything similar before.
+                        </td>
+                        <td>A website where people can share which type of assignments they got and how they worked on
+                            it. Of course only share if the company allows that.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>15</th>
+                        <td>Paris French Cuisine Michelin Planner App</td>
+                        <td>
+                            Paris has many Michelin restaurants with wide differences in price, location, and style.
+                            Users struggle to plan efficient routes and balanced budgets while enjoying diverse culinary
+                            experiences.
+                        </td>
+                        <td>The app records each dining experience and personal taste preference, then uses map-based
+                            and budget-planning algorithms to generate the optimal dining route.
+                            It ensures monthly or quarterly spending balance while recommending restaurants across
+                            different styles — traditional, modern, creative, or fusion French cuisine.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>16</th>
+                        <td>WashTrack Smart Laundry Queue & Reminder System</td>
+                        <td>
+                            In student residences (like where i live) or shared buildings, laundry rooms are often
+                            crowded, and users forget their clothes in the machine or arrive while all machines are
+                            occupied especially on week ends.
+                            There’s no simple way to know which machines are available, when a cycle will end, or to
+                            organize a fair waiting queue.
+                        </td>
+                        <td>WashTrack is a mobile/web app where users scan a QR code placed on each washing machine to
+                            register their laundry session. The app records the duration, notifies the user when the
+                            cycle is done, and updates the machine’s status in real time. Others can check availability
+                            and join a waiting list to be notified when a machine becomes free.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>16</th>
+                        <td>AI startup ideas generator</td>
+                        <td>
+                            the hardest part when creating a startup is to come up with an idea that you can turn into a
+                            product
+                        </td>
+                        <td>An AI startup company that uses AI to generate startup ideas for you.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>17</th>
+                        <td>AI-powered paper finder</td>
+                        <td>
+                        </td>
+                        <td> Input an academic statement, and it automatically uses AI to find whether each sentence has
+                            been used in other documents, thus reducing repetition of ideas. It can also be used as an
+                            assistant to find cited documents.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>18</th>
+                        <td>Cooking timer</td>
+                        <td>
+                            When cooking several dishes, it’s easy to lose track of what to do next — something burns,
+                            or ingredients are added too late. Help users cook efficiently, avoid mistakes, and enjoy
+                            stress-free multitasking in the kitchen.
+                        </td>
+                        <td>An app that manages multiple cooking timers and step-by-step reminders, telling you exactly
+                            when to flip, stir, or serve each dish.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>19</th>
+                        <td>EventMap – Discover Local Free Events Nearby</td>
+                        <td>
+                            Many people, especially students, don’t know what free or low-cost activities are happening
+                            around them (concerts, exhibitions, sports, meetups).
+                            Local events are often scattered across different websites or social media pages, making
+                            discovery complicated.
+                        </td>
+                        <td>EventMap is a website that aggregates free and affordable local events from public sources
+                            (city websites, associations, universities, cultural centers) and displays them on an
+                            interactive map. Users can filter by category (music, art, sports, networking) and save
+                            events to their calendar.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>20</th>
+                        <td>Nurse search platform</td>
+                        <td>
+                            When you have a surgery in France, you need to look for a nurse that will go to your house
+                            each day to replace the bandage and stuffs.
+                            Most nurse agencies have their own websites so a lot of navigating around. Doctorlib
+                            requires taking appointment beforehand.
+                        </td>
+                        <td>A centrailized platform that connects nurses and patients. Also allow rating and commenting.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="footer sm:footer-horizontal footer-center bg-base-300 text-base-content p-4">
+        <aside>
+            <p>Group 5 - Meradji, Nguyen, Ni, Pan</p>
+        </aside>
+    </footer>
+</body>
+
+</html>
