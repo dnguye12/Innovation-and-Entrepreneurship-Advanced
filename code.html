@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Code</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
+</head>
+
+<body class="flex flex-col min-h-screen">
+    <div class="shadow-sm bg-base-300">
+        <div class="navbar container max-w-7xl mx-auto">
+            <div class="navbar-start">
+                <div class="dropdown">
+                    <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h8m-8 6h16" />
+                        </svg>
+                    </div>
+                    <ul tabindex="-1"
+                        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                        <li><a>Item 1</a></li>
+                        <li>
+                            <a>Parent</a>
+                            <ul class="p-2">
+                                <li><a>Submenu 1</a></li>
+                                <li><a>Submenu 2</a></li>
+                            </ul>
+                        </li>
+                        <li><a>Item 3</a></li>
+                    </ul>
+                </div>
+                <a class="btn btn-ghost text-xl" href="index.html">FoodPlan Maker</a>
+            </div>
+            <div class="navbar-center hidden lg:flex">
+                <ul class="menu menu-horizontal px-1 gap-x-2">
+                    <li><a href="index.html">About Us</a></li>
+                    <li><a href="assignments.html">Assignments</a></li>
+                    <li><a href="slides.html">Slides</a></li>
+                    <li><a href="code.html">Java Code</a></li>
+                </ul>
+            </div>
+            <div class="navbar-end">
+            </div>
+        </div>
+    </div>
+    <div class="flex-1 container max-w-7xl mx-auto py-16">
+        <pre><code class="language-java">
+// DietPlanner.java
+// Nutrition Diet Plan Generator - Enhanced with Smart Macro Balance
+
+import java.io.*;
+import java.util.*;
+
+class Food {
+    String name;
+    double gramsPerServing;
+    double caloriesPer100g;
+    String category;
+
+    public Food(String name, double caloriesPer100g, String category) {
+        this.name = name;
+        this.gramsPerServing = 0;
+        this.caloriesPer100g = caloriesPer100g;
+        this.category = category;
+    }
+
+    public double getTotalCalories() {
+        return (gramsPerServing * caloriesPer100g) / 100.0;
+    }
+
+    public double getProtein() {
+        if (category.equals("Protein")) return gramsPerServing * 0.20;
+        if (category.equals("Dairy")) return gramsPerServing * 0.10;
+        return gramsPerServing * 0.03;
+    }
+
+    public double getCarbs() {
+        if (category.equals("Carbs")) return gramsPerServing * 0.75;
+        if (category.equals("Fruit")) return gramsPerServing * 0.15;
+        if (category.equals("Vegetable")) return gramsPerServing * 0.07;
+        return gramsPerServing * 0.05;
+    }
+
+    public double getFat() {
+        if (category.equals("Fat")) return gramsPerServing * 0.90;
+        if (category.equals("Protein")) return gramsPerServing * 0.10;
+        if (category.equals("Dairy")) return gramsPerServing * 0.05;
+        return gramsPerServing * 0.02;
+    }
+}
+
+class MacroNutrients {
+    double proteinGrams;
+    double carbsGrams;
+    double fatGrams;
+
+    public double getProteinCalories() { return proteinGrams * 4; }
+    public double getCarbsCalories() { return carbsGrams * 4; }
+    public double getFatCalories() { return fatGrams * 9; }
+    public double getTotalCalories() {
+        return getProteinCalories() + getCarbsCalories() + getFatCalories();
+    }
+
+    public double getProteinPercent() {
+        double total = getTotalCalories();
+        return total > 0 ? (getProteinCalories() / total) * 100 : 0;
+    }
+
+    public double getCarbsPercent() {
+        double total = getTotalCalories();
+        return total > 0 ? (getCarbsCalories() / total) * 100 : 0;
+    }
+
+    public double getFatPercent() {
+        double total = getTotalCalories();
+        return total > 0 ? (getFatCalories() / total) * 100 : 0;
+    }
+}
+
+class DietPlan {
+    List<Food> foodList;
+    double targetCalories;
+    double tolerance = 50;
+
+    // 健康营养素目标比例
+    final double TARGET_CARBS_PERCENT = 55.0;    // 45-65%，取中间值
+    final double TARGET_PROTEIN_PERCENT = 20.0;  // 10-35%，推荐值
+    final double TARGET_FAT_PERCENT = 25.0;      // 20-35%，推荐值
+
+    public DietPlan() {
+        foodList = new ArrayList<>();
+        initializeFoodDatabase();
+    }
+
+    private void initializeFoodDatabase() {
+        // Protein
+        foodList.add(new Food("Chicken Breast", 165, "Protein"));
+        foodList.add(new Food("Egg", 143, "Protein"));
+        foodList.add(new Food("Salmon", 208, "Protein"));
+        foodList.add(new Food("Tofu", 76, "Protein"));
+        foodList.add(new Food("Beef", 250, "Protein"));
+
+        // Carbohydrates
+        foodList.add(new Food("Rice", 130, "Carbs"));
+        foodList.add(new Food("Bread", 247, "Carbs"));
+        foodList.add(new Food("Oatmeal", 389, "Carbs"));
+        foodList.add(new Food("Sweet Potato", 86, "Carbs"));
+        foodList.add(new Food("Pasta", 371, "Carbs"));
+
+        // Vegetables
+        foodList.add(new Food("Broccoli", 34, "Vegetable"));
+        foodList.add(new Food("Spinach", 23, "Vegetable"));
+        foodList.add(new Food("Tomato", 18, "Vegetable"));
+        foodList.add(new Food("Cucumber", 15, "Vegetable"));
+        foodList.add(new Food("Carrot", 41, "Vegetable"));
+
+        // Fruits
+        foodList.add(new Food("Apple", 52, "Fruit"));
+        foodList.add(new Food("Banana", 89, "Fruit"));
+        foodList.add(new Food("Orange", 47, "Fruit"));
+
+        // Dairy
+        foodList.add(new Food("Milk", 61, "Dairy"));
+        foodList.add(new Food("Yogurt", 59, "Dairy"));
+        foodList.add(new Food("Cheese", 402, "Dairy"));
+
+        // Healthy Fats
+        foodList.add(new Food("Olive Oil", 884, "Fat"));
+        foodList.add(new Food("Avocado", 160, "Fat"));
+        foodList.add(new Food("Nuts", 607, "Fat"));
+    }
+
+    public Food findFood(String name) {
+        for (Food food : foodList) {
+            if (food.name.toLowerCase().contains(name.toLowerCase())) {
+                return food;
+            }
+        }
+        return null;
+    }
+
+    public void displayAvailableFoods() {
+        System.out.println("\n========== Available Food List ==========");
+        Map<String, List<Food>> categorized = new HashMap<>();
+
+        for (Food food : foodList) {
+            categorized.putIfAbsent(food.category, new ArrayList<>());
+            categorized.get(food.category).add(food);
+        }
+
+        for (Map.Entry<String, List<Food>> entry : categorized.entrySet()) {
+            System.out.println("\n[" + entry.getKey() + "]");
+            for (Food food : entry.getValue()) {
+                System.out.printf("  %-15s (%.0f cal/100g)\n",
+                        food.name, food.caloriesPer100g);
+            }
+        }
+        System.out.println();
+    }
+
+    public double calculateTotalCalories() {
+        double total = 0;
+        for (Food food : foodList) {
+            total += food.getTotalCalories();
+        }
+        return total;
+    }
+
+    public MacroNutrients calculateMacros() {
+        MacroNutrients macros = new MacroNutrients();
+        for (Food food : foodList) {
+            macros.proteinGrams += food.getProtein();
+            macros.carbsGrams += food.getCarbs();
+            macros.fatGrams += food.getFat();
+        }
+        return macros;
+    }
+
+    public void displayNutrition() {
+        MacroNutrients macros = calculateMacros();
+        double totalCalories = calculateTotalCalories();
+
+        System.out.println("\n========== Diet Plan Details ==========");
+
+        for (Food food : foodList) {
+            if (food.gramsPerServing > 0) {
+                double cal = food.getTotalCalories();
+                System.out.printf("  %-15s: %6.0fg  →  %6.0f cal\n",
+                        food.name, food.gramsPerServing, cal);
+            }
+        }
+
+        System.out.println("  ----------------------------------");
+        System.out.printf("  Total Calories: %.0f cal\n", totalCalories);
+        System.out.printf("  Protein: %.1fg (%.1f%%) | Carbs: %.1fg (%.1f%%) | Fat: %.1fg (%.1f%%)\n",
+                macros.proteinGrams, macros.getProteinPercent(),
+                macros.carbsGrams, macros.getCarbsPercent(),
+                macros.fatGrams, macros.getFatPercent());
+        System.out.println("=======================================\n");
+    }
+
+    public void adjustToTarget() {
+        double currentCalories = calculateTotalCalories();
+        double difference = targetCalories - currentCalories;
+        MacroNutrients currentMacros = calculateMacros();
+
+        System.out.println("---------- Calorie & Macro Analysis ----------");
+        System.out.printf("Target Calories: %.0f cal\n", targetCalories);
+        System.out.printf("Current Calories: %.0f cal\n", currentCalories);
+        System.out.printf("Difference: %+.0f cal\n\n", difference);
+
+        System.out.println("Current Macros vs Target:");
+        System.out.printf("  Protein: %.1f%% (Target: %.0f%%)\n",
+                currentMacros.getProteinPercent(), TARGET_PROTEIN_PERCENT);
+        System.out.printf("  Carbs:   %.1f%% (Target: %.0f%%)\n",
+                currentMacros.getCarbsPercent(), TARGET_CARBS_PERCENT);
+        System.out.printf("  Fat:     %.1f%% (Target: %.0f%%)\n",
+                currentMacros.getFatPercent(), TARGET_FAT_PERCENT);
+        System.out.println("----------------------------------------------\n");
+
+        if (Math.abs(difference) <= tolerance) {
+            System.out.println("✓ Target calorie range achieved!\n");
+            return;
+        }
+
+        if (difference > 0) {
+            System.out.println("→ Increasing food portions based on macro needs...");
+            increaseCaloriesSmartly(difference, currentMacros);
+        } else {
+            System.out.println("→ Decreasing food portions based on macro balance...");
+            decreaseCaloriesSmartly(Math.abs(difference), currentMacros);
+        }
+        System.out.println("✓ Adjustment completed!\n");
+    }
+
+    private void increaseCaloriesSmartly(double needed, MacroNutrients currentMacros) {
+        double remaining = needed;
+        int maxIterations = 20;
+        int iteration = 0;
+
+        double proteinDeviation = currentMacros.getProteinPercent() - TARGET_PROTEIN_PERCENT;
+        double carbsDeviation = currentMacros.getCarbsPercent() - TARGET_CARBS_PERCENT;
+        double fatDeviation = currentMacros.getFatPercent() - TARGET_FAT_PERCENT;
+
+        List<MacroPriority> priorities = new ArrayList<>();
+        priorities.add(new MacroPriority("Carbs", carbsDeviation, Arrays.asList("Carbs", "Fruit", "Vegetable")));
+        priorities.add(new MacroPriority("Protein", proteinDeviation, Arrays.asList("Protein", "Dairy")));
+        priorities.add(new MacroPriority("Fat", fatDeviation, Arrays.asList("Fat")));
+
+        priorities.sort(Comparator.comparingDouble(p -> p.deviation));
+
+        System.out.println("Adjustment Strategy (Priority Order):");
+        for (MacroPriority p : priorities) {
+            System.out.printf("  %s (deviation: %.1f%%)\n", p.name, p.deviation);
+        }
+        System.out.println();
+
+        double totalNegativeDeviation = 0;
+        for (MacroPriority p : priorities) {
+            if (p.deviation < 0) {
+                totalNegativeDeviation += Math.abs(p.deviation);
+            }
+        }
+
+        while (remaining > tolerance && iteration < maxIterations) {
+            iteration++;
+            boolean anyChange = false;
+
+            for (MacroPriority priority : priorities) {
+                if (remaining <= tolerance) break;
+
+                double allocatedCalories;
+                if (priority.deviation < 0 && totalNegativeDeviation > 0) {
+                    double weight = Math.abs(priority.deviation) / totalNegativeDeviation;
+                    allocatedCalories = remaining * weight;
+                } else {
+                    allocatedCalories = remaining / 3.0;
+                }
+
+                for (String category : priority.categories) {
+                    if (remaining <= tolerance) break;
+
+                    List<Food> categoryFoods = new ArrayList<>();
+                    for (Food food : foodList) {
+                        if (food.category.equals(category) && food.gramsPerServing > 0) {
+                            categoryFoods.add(food);
+                        }
+                    }
+
+                    if (categoryFoods.isEmpty() && remaining > tolerance) {
+                        Food newFood = findFirstFoodInCategory(category);
+                        if (newFood != null && newFood.gramsPerServing == 0) {
+                            double calsToAdd = Math.min(allocatedCalories / priority.categories.size(), remaining);
+                            double gramsToAdd = (calsToAdd / newFood.caloriesPer100g) * 100;
+                            gramsToAdd = Math.max(20, Math.min(gramsToAdd, 200));
+
+                            newFood.gramsPerServing = gramsToAdd;
+                            double added = (gramsToAdd * newFood.caloriesPer100g) / 100;
+                            remaining -= added;
+                            anyChange = true;
+                            System.out.printf("  + %s added %.0fg (+%.0fcal)\n",
+                                    newFood.name, gramsToAdd, added);
+                        }
+                    } else {
+                        for (Food food : categoryFoods) {
+                            if (remaining <= tolerance) break;
+
+                            double calsToAdd = Math.min(allocatedCalories / (priority.categories.size() * categoryFoods.size()), remaining);
+                            double gramsToAdd = (calsToAdd / food.caloriesPer100g) * 100;
+                            gramsToAdd = Math.max(10, Math.min(gramsToAdd, 100));
+
+                            food.gramsPerServing += gramsToAdd;
+                            double added = (gramsToAdd * food.caloriesPer100g) / 100;
+                            remaining -= added;
+                            anyChange = true;
+
+                            System.out.printf("  + %s increased by %.0fg (+%.0fcal)\n",
+                                    food.name, gramsToAdd, added);
+                        }
+                    }
+                }
+            }
+
+            if (!anyChange) {
+                System.out.println("  (No more adjustments possible)");
+                break;
+            }
+        }
+
+        if (remaining > tolerance) {
+            System.out.printf("  Note: Still %.0f cal short of target\n", remaining);
+        }
+    }
+
+    private void decreaseCaloriesSmartly(double needed, MacroNutrients currentMacros) {
+        double currentCalories = calculateTotalCalories();
+        double remaining = needed;
+
+        // 如果需要减少的卡路里超过当前总卡路里的80%，使用比例缩放策略
+        if (needed > currentCalories * 0.8) {
+            System.out.println("Large reduction needed - using proportional scaling strategy\n");
+            double scaleFactor = targetCalories / currentCalories;
+
+            System.out.printf("Scaling all portions by %.2f%%\n\n", scaleFactor * 100);
+
+            for (Food food : foodList) {
+                if (food.gramsPerServing > 0) {
+                    double oldGrams = food.gramsPerServing;
+                    double oldCals = food.getTotalCalories();
+
+                    food.gramsPerServing = food.gramsPerServing * scaleFactor;
+                    double newCals = food.getTotalCalories();
+
+                    System.out.printf("  - %s: %.0fg → %.0fg (%.0f cal → %.0f cal)\n",
+                            food.name, oldGrams, food.gramsPerServing, oldCals, newCals);
+                }
+            }
+
+            // 检查是否需要微调
+            double newTotal = calculateTotalCalories();
+            remaining = Math.abs(targetCalories - newTotal);
+
+            if (remaining > tolerance) {
+                System.out.printf("\nFine-tuning needed: %.0f cal\n", remaining);
+                if (newTotal > targetCalories) {
+                    finetuneReduction(remaining);
+                } else {
+                    finetuneIncrease(remaining);
+                }
+            }
+            return;
+        }
+
+        // 正常的渐进式减少策略
+        int maxIterations = 30;
+        int iteration = 0;
+
+        double proteinDeviation = currentMacros.getProteinPercent() - TARGET_PROTEIN_PERCENT;
+        double carbsDeviation = currentMacros.getCarbsPercent() - TARGET_CARBS_PERCENT;
+        double fatDeviation = currentMacros.getFatPercent() - TARGET_FAT_PERCENT;
+
+        List<MacroPriority> priorities = new ArrayList<>();
+        priorities.add(new MacroPriority("Fat", fatDeviation, Arrays.asList("Fat")));
+        priorities.add(new MacroPriority("Protein", proteinDeviation, Arrays.asList("Protein", "Dairy")));
+        priorities.add(new MacroPriority("Carbs", carbsDeviation, Arrays.asList("Carbs", "Fruit")));
+
+        priorities.sort((p1, p2) -> Double.compare(p2.deviation, p1.deviation));
+
+        System.out.println("Reduction Strategy (Priority Order):");
+        for (MacroPriority p : priorities) {
+            System.out.printf("  %s (deviation: %.1f%%)\n", p.name, p.deviation);
+        }
+        System.out.println();
+
+        double totalPositiveDeviation = 0;
+        for (MacroPriority p : priorities) {
+            if (p.deviation > 0) {
+                totalPositiveDeviation += p.deviation;
+            }
+        }
+
+        while (remaining > tolerance && iteration < maxIterations) {
+            iteration++;
+            boolean anyChange = false;
+            double startRemaining = remaining;
+
+            for (MacroPriority priority : priorities) {
+                if (remaining <= tolerance) break;
+
+                double allocatedCalories;
+                if (priority.deviation > 0 && totalPositiveDeviation > 0) {
+                    double weight = priority.deviation / totalPositiveDeviation;
+                    allocatedCalories = remaining * weight;
+                } else {
+                    allocatedCalories = remaining / 3.0;
+                }
+
+                for (String category : priority.categories) {
+                    if (remaining <= tolerance) break;
+
+                    List<Food> categoryFoods = new ArrayList<>();
+                    for (Food food : foodList) {
+                        if (food.category.equals(category) && food.gramsPerServing > 0) {
+                            categoryFoods.add(food);
+                        }
+                    }
+
+                    categoryFoods.sort((a, b) ->
+                            Double.compare(b.caloriesPer100g, a.caloriesPer100g));
+
+                    for (Food food : categoryFoods) {
+                        if (remaining <= tolerance) break;
+
+                        double currentFoodCals = food.getTotalCalories();
+                        double calsToReduce = Math.min(
+                                Math.min(allocatedCalories / (priority.categories.size() * Math.max(1, categoryFoods.size())),
+                                        remaining),
+                                currentFoodCals
+                        );
+
+                        double gramsToReduce = (calsToReduce / food.caloriesPer100g) * 100;
+                        gramsToReduce = Math.min(gramsToReduce, food.gramsPerServing);
+
+                        if (gramsToReduce >= 1) {
+                            food.gramsPerServing -= gramsToReduce;
+                            double reduced = (gramsToReduce * food.caloriesPer100g) / 100;
+                            remaining -= reduced;
+                            anyChange = true;
+
+                            System.out.printf("  - %s reduced by %.0fg (-%.0fcal)\n",
+                                    food.name, gramsToReduce, reduced);
+                        }
+                    }
+                }
+            }
+
+            // 检查是否有进展
+            if (!anyChange || Math.abs(startRemaining - remaining) < 1) {
+                System.out.println("  (No more significant adjustments possible)");
+                break;
+            }
+        }
+
+        if (remaining > tolerance) {
+            System.out.printf("  Note: Still %.0f cal above target\n", remaining);
+        }
+    }
+
+    private void finetuneReduction(double needed) {
+        // 微调：从卡路里最高的食物开始减少
+        List<Food> sortedFoods = new ArrayList<>();
+        for (Food food : foodList) {
+            if (food.gramsPerServing > 0) {
+                sortedFoods.add(food);
+            }
+        }
+        sortedFoods.sort((a, b) -> Double.compare(b.getTotalCalories(), a.getTotalCalories()));
+
+        double remaining = needed;
+        for (Food food : sortedFoods) {
+            if (remaining <= tolerance) break;
+
+            double maxReduction = Math.min(remaining, food.getTotalCalories());
+            double gramsToReduce = (maxReduction / food.caloriesPer100g) * 100;
+            gramsToReduce = Math.min(gramsToReduce, food.gramsPerServing);
+
+            food.gramsPerServing -= gramsToReduce;
+            double reduced = (gramsToReduce * food.caloriesPer100g) / 100;
+            remaining -= reduced;
+
+            System.out.printf("  - %s reduced by %.0fg (-%.0fcal)\n",
+                    food.name, gramsToReduce, reduced);
+        }
+    }
+
+    private void finetuneIncrease(double needed) {
+        // 微调：增加现有食物的份量
+        List<Food> sortedFoods = new ArrayList<>();
+        for (Food food : foodList) {
+            if (food.gramsPerServing > 0) {
+                sortedFoods.add(food);
+            }
+        }
+
+        double remaining = needed;
+        for (Food food : sortedFoods) {
+            if (remaining <= tolerance) break;
+
+            double calsToAdd = remaining / sortedFoods.size();
+            double gramsToAdd = (calsToAdd / food.caloriesPer100g) * 100;
+
+            food.gramsPerServing += gramsToAdd;
+            double added = (gramsToAdd * food.caloriesPer100g) / 100;
+            remaining -= added;
+
+            System.out.printf("  + %s increased by %.0fg (+%.0fcal)\n",
+                    food.name, gramsToAdd, added);
+        }
+    }
+
+    private Food findFirstFoodInCategory(String category) {
+        for (Food food : foodList) {
+            if (food.category.equals(category)) {
+                return food;
+            }
+        }
+        return null;
+    }
+
+    static class MacroPriority {
+        String name;
+        double deviation;
+        List<String> categories;
+
+        MacroPriority(String name, double deviation, List<String> categories) {
+            this.name = name;
+            this.deviation = deviation;
+            this.categories = categories;
+        }
+    }
+}
+
+public class DietPlanner {
+
+    static String readInput(String prompt) {
+        try {
+            System.out.print(prompt);
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(System.in));
+            return reader.readLine().trim();
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println("════════════════════════════════════════════");
+        System.out.println("   Nutrition Diet Plan Generator v2.0");
+        System.out.println("   Smart Macro-Balanced Calorie Adjustment");
+        System.out.println("════════════════════════════════════════════\n");
+
+        DietPlan plan = new DietPlan();
+        plan.displayAvailableFoods();
+
+        System.out.println("Please enter your initial food list:");
+        System.out.println("(Format: food_name grams, e.g.: Chicken 150)");
+        System.out.println("(Type 'done' to finish)\n");
+
+        int count = 0;
+        while (true) {
+            String input = readInput("→ ");
+            if (input.equalsIgnoreCase("done") || input.isEmpty()) {
+                if (count == 0) {
+                    // Sample data
+                    plan.findFood("Chicken").gramsPerServing = 150;
+                    plan.findFood("Rice").gramsPerServing = 200;
+                    plan.findFood("Broccoli").gramsPerServing = 100;
+                }
+                break;
+            }
+
+            String[] parts = input.split("\\s+");
+            if (parts.length >= 2) {
+                try {
+                    Food food = plan.findFood(parts[0]);
+                    if (food != null) {
+                        food.gramsPerServing = Double.parseDouble(parts[1]);
+                        count++;
+                        System.out.println("  ✓ " + food.name + " " + parts[1] + "g");
+                    } else {
+                        System.out.println("  ✗ Not found: " + parts[0]);
+                    }
+                } catch (Exception e) {
+                    System.out.println("  ✗ Format error");
+                }
+            }
+        }
+
+        plan.displayNutrition();
+
+        String target = readInput("Please enter target calories: ");
+        try {
+            plan.targetCalories = Double.parseDouble(target);
+        } catch (Exception e) {
+            plan.targetCalories = 2000;
+        }
+
+        plan.adjustToTarget();
+
+        System.out.println("========== Final Optimized Plan ==========");
+        plan.displayNutrition();
+
+        double diff = Math.abs(plan.calculateTotalCalories() - plan.targetCalories);
+        if (diff <= plan.tolerance) {
+            System.out.println("✓ Optimization successful! Macro balance achieved!");
+        } else {
+            System.out.printf("⚠ Close to target (%.0f cal difference)\n", diff);
+        }
+        System.out.println("\nThank you for using!");
+    }
+}
+    </code></pre>
+    </div>
+
+    <footer class="footer sm:footer-horizontal footer-center bg-base-300 text-base-content p-4">
+        <aside>
+            <p>Group 5 - Meradji, Nguyen, Ni, Pan</p>
+        </aside>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+
+</html>
